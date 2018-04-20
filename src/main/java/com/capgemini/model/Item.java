@@ -34,4 +34,9 @@ public class Item {
     public void setBonus(double bonus) {
         this.bonus = bonus;
     }
+
+    @Override
+    public String toString() {
+        return "A " + this.type + " item with a bonus of " + this.bonus;
+    }
 }

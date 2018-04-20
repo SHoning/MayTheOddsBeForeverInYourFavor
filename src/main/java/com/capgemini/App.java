@@ -18,8 +18,6 @@ public class App
     public static void main( String[] args )
     {
         GameController hungerGames2018 = new GameController();
-
-        hungerGames2018.haveReaping();
         hungerGames2018.playGames();
 
     }

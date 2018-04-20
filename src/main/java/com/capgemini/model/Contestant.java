@@ -11,7 +11,7 @@ public abstract class Contestant {
     private double attack;
     private double defense;
     private double carryingCapacity = 20;
-    private ArrayList<Item> carriedItems;
+    private ArrayList<Item> carriedItems = new ArrayList<>();
     private static AtomicLong idCounter = new AtomicLong();
 
     public Contestant() {
@@ -85,7 +85,10 @@ public abstract class Contestant {
         return idCounter.getAndIncrement();
     }
 
-    public void addToCarriedItems(Item item){
+    public void addToCarriedItems(Item item) throws NotEnoughCapacityException {
+        if (this.carryingCapacity < item.getWeight()){
+            throw new NotEnoughCapacityException();
+        }
         this.carriedItems.add(item);
         this.carryingCapacity = this.carryingCapacity - item.getWeight();
         switch(item.getType()){

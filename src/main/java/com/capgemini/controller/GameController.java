@@ -12,14 +12,14 @@ public class GameController {
     private ContestantView contestantView = new ContestantView();
     private ContestantController contestantController = new ContestantController();
     private GameInfo gameInfo = new GameInfo();
-    private ItemController itemController = new ItemController();
+    private ItemControllerSingleton itemControllerSingleton = ItemControllerSingleton.getInstance();
 
     public void haveReaping(ArrayList<Item> itemsForCareers) {
         contestantController.haveReaping(itemsForCareers);
         showAlivePlayerStatus();
     }
 
-    public void playDay() {
+    public void playDay() {//TODO: functionality for finding/losing items, (LOSING ALSO IN CONTESTANT!);
         ArrayList<Contestant> contestantsMeet = contestantController.decideContact();
         int meeting;
         if (contestantsMeet.size() % 2 == 0) { //Then the number of contestants meeting is even, so everyone will fight
@@ -31,11 +31,12 @@ public class GameController {
             contestantController.haveFight(contestantsMeet.get(2 * i), contestantsMeet.get(2 * i + 1));
             gameInfo.deathBoom();
         }
+        contestantController.findItems();
     }
 
     public void playGames() {
-        itemController.generateRandomItemsForTheGame(50); //Initialization for the game
-        ArrayList<Item> itemForCareers = itemController.generateItemsForCareers(6);
+        itemControllerSingleton.generateRandomItemsForTheGame(50); //Initialization for the game
+        ArrayList<Item> itemForCareers = itemControllerSingleton.generateItemsForCareers(6);
         haveReaping(itemForCareers);
         while (contestantController.getAliveContestants().size() > 1) {
             gameInfo.startDay();
