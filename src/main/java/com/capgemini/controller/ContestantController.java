@@ -28,14 +28,19 @@ public class ContestantController {
                 i++;
             }
             Contestant contestant = new DistrictContestant();
-            if(contestant.getHealth()<50 || contestant.getAttack()<5 || contestant.getDefense() <5){
-                //TODO: Add Love in volunteering (contestant.getLoved >10 &&(....))
-                contestant = new DistrictContestant();
-                reapingView.volunteer(contestant);
-            }
-            this.aliveContestants.add(contestant);
-            //TODO: implement volunteering here?
+            Contestant contestant1 = anyVolunteers(contestant);
+            this.aliveContestants.add(contestant1);
         }
+    }
+
+    private Contestant anyVolunteers(Contestant contestant){
+        Contestant contestant1 = new DistrictContestant();
+        if(contestant.getHealth()<50 || contestant.getAttack()<5 || contestant.getDefense() <5){
+            //TODO: Add Love in volunteering (contestant.getLoved >10 &&(....))
+            reapingView.volunteer(contestant1);
+            return contestant1;
+        }
+        return contestant;
     }
 
     public void findItems() {
