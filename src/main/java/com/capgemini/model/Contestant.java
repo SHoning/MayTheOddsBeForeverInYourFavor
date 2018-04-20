@@ -1,5 +1,6 @@
 package com.capgemini.model;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -9,6 +10,8 @@ public abstract class Contestant {
     private double health;
     private double attack;
     private double defense;
+    private double carryingCapacity = 20;
+    private ArrayList<Item> carriedItems;
     private static AtomicLong idCounter = new AtomicLong();
 
     public Contestant() {
@@ -61,9 +64,38 @@ public abstract class Contestant {
         this.defense = defense;
     }
 
+    public double getCarryingCapacity() {
+        return carryingCapacity;
+    }
+
+    public void setCarryingCapacity(int carryingCapacity) {
+        this.carryingCapacity = carryingCapacity;
+    }
+
+    public ArrayList<Item> getCarriedItems() {
+        return carriedItems;
+    }
+
+    public void setCarriedItems(ArrayList<Item> carriedItems) {
+        this.carriedItems = carriedItems;
+    }
+
     private static long generateUniqueID()
     {
         return idCounter.getAndIncrement();
+    }
+
+    public void addToCarriedItems(Item item){
+        this.carriedItems.add(item);
+        this.carryingCapacity = this.carryingCapacity - item.getWeight();
+        switch(item.getType()){
+            case ATTACK:
+                this.attack = this.attack + item.getBonus();
+                break;
+            case DEFENCE:
+                this.defense = this.defense + item.getBonus();
+                break;
+        }
     }
 
     @Override

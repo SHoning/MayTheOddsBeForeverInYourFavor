@@ -3,6 +3,7 @@ package com.capgemini.controller;
 import com.capgemini.model.CareerContestant;
 import com.capgemini.model.Contestant;
 import com.capgemini.model.DistrictContestant;
+import com.capgemini.model.Item;
 
 import java.util.ArrayList;
 
@@ -11,10 +12,11 @@ public class ContestantController {
     private ArrayList<Contestant> contestantsDiedToday = new ArrayList<Contestant>();
     private ArrayList<Contestant> deadContestants = new ArrayList<Contestant>();
 
-    public void haveReaping(){
+    public void haveReaping(ArrayList<Item> items){
         for (int i =0; i<24; i++){ //there are 24 aliveContestants
             while (i<6) {                   // a quarter of the aliveContestants are CareerContestants
                 Contestant contestant = new CareerContestant();
+                contestant.addToCarriedItems(items.get(i));
                 this.aliveContestants.add(contestant);
                 i++;
             }
@@ -74,4 +76,5 @@ public class ContestantController {
             this.deadContestants.add(contestant);
         }
     }
+
 }
