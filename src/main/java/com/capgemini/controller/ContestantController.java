@@ -2,6 +2,7 @@ package com.capgemini.controller;
 
 import com.capgemini.model.*;
 import com.capgemini.view.ItemView;
+import com.capgemini.view.ReapingView;
 
 import java.util.ArrayList;
 
@@ -11,6 +12,7 @@ public class ContestantController {
     private ArrayList<Contestant> deadContestants = new ArrayList<Contestant>();
     private ItemControllerSingleton itemController = ItemControllerSingleton.getInstance();
     private ItemView itemView = new ItemView();
+    private ReapingView reapingView = new ReapingView();
 
     public void haveReaping(ArrayList<Item> items) {
         for (int i = 0; i < 24; i++) { //there are 24 aliveContestants
@@ -25,6 +27,11 @@ public class ContestantController {
                 i++;
             }
             Contestant contestant = new DistrictContestant();
+            if(contestant.getHealth()<50 || contestant.getAttack()<5 || contestant.getDefense() <5){
+                //TODO: Add Love in volunteering (contestant.getLoved >10 &&(....))
+                contestant = new DistrictContestant();
+                reapingView.volunteer(contestant);
+            }
             this.aliveContestants.add(contestant);
             //TODO: implement volunteering here?
         }
