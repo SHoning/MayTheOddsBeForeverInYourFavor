@@ -1,7 +1,8 @@
 package com.capgemini;
 
 /**
- * Hello world!
+ * Nice Ideas: BattleItem abstract with DefenseItem, AttackItem, HealthItem?! as subclasses
+ * Alliances is nice as well
  *
  */
 public class App 
