@@ -5,6 +5,7 @@ import com.capgemini.view.ItemView;
 import com.capgemini.view.ReapingView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ContestantController {
     private ArrayList<Contestant> aliveContestants = new ArrayList<Contestant>();
@@ -58,6 +59,7 @@ public class ContestantController {
                 contestantsMeet.add(contestant);
             }
         }
+        Collections.shuffle(contestantsMeet); //Randomize who will fight against who
         return contestantsMeet;
     }
 
