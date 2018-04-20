@@ -34,8 +34,8 @@ public class ContestantController {
         for (Contestant contestant : aliveContestants) {
             if (Math.random() < 0.3) {
                 try {
-                    Item item =itemController.getItem();
-                    itemView.showResult(item,contestant);
+                    Item item = itemController.getItem();
+                    itemView.showResult(item, contestant);
                     contestant.addToCarriedItems(item);
                 } catch (NotEnoughCapacityException e) {
                     System.out.println(" but could not carry it!");
@@ -55,14 +55,26 @@ public class ContestantController {
     }
 
     public void haveFight(Contestant contestant1, Contestant contestant2) {
-        //TODO: Something based on attack/Defense/Health to decide who wins
-        if (Math.random() > 0.5) {
+        //We calculate a efficiency based on health and defense of opponent and personal strength.
+        //There is still a change that the underdog wins
+        double contestant1Efficiency = contestant2.getHealth() / (contestant1.getAttack() - contestant2.getDefense());
+        double contestant2Efficiency = contestant1.getHealth() / (contestant2.getAttack() - contestant1.getDefense());
+        if(contestant2Efficiency>contestant1Efficiency) {
+            if (Math.random() > 0.9 ){
+                this.contestantsDiedToday.add(contestant2);
+                this.aliveContestants.remove(contestant2);
+            }
             this.contestantsDiedToday.add(contestant1);
             this.aliveContestants.remove(contestant1);
         } else {
+            if (Math.random() > 0.9 ){
+                this.contestantsDiedToday.add(contestant1);
+                this.aliveContestants.remove(contestant1);
+            }
             this.contestantsDiedToday.add(contestant2);
             this.aliveContestants.remove(contestant2);
         }
+    //TODO: Have a real simulation
     }
 
     public ArrayList<Contestant> getAliveContestants() {

@@ -5,6 +5,6 @@ import com.capgemini.model.Item;
 
 public class ItemView {
     public void showResult(Item item, Contestant contestant){
-        System.out.println("Contestant" + contestant.getId() + " found " + item);
+        System.out.println("Contestant " + contestant.getId() + " found " + item);
     }
 }
